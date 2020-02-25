@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+
+
+''' TimeLapse v1.0 Python script by @AlexCorvis84
+
+https://geekytheory.com/timelapse-24-horas-con-raspberry-pi-webcam-usb
+
+Pequeno script Python que guarda imagenes capturadas por una Webcam
+mediante la herramienta fswebcam.
+
+El tiempo de ejecucion estara determinado por la variable 'end'. 
+La cual define el numero final de imagenes a tomar. 
+En este caso se han tomado 8640 fotografias que se corresponde con:
+
+6 imagenes/min x 60 min/Hora x 24 Horas = 8640 imagenes
+
+NOTA: Modificar el valor de la variable 'end' para realizar
+videos con distintas duraciones.
+
+Ej: 10min = 60 imagenes, 30min = 180 imagenes, etc.
+
+Agradecimientos a www.geekytheory.com'''
+
+import os
+import time
+import sys
+
+start = 0
+end = 12
+
+print("Comienza el script....durante",end*10," segundos",end*10/60, " minutos")
+while start < end:   
+    print("Capturando imagen")
+    os.system("fswebcam -i 0 -d /dev/video0 -r 640x480 -p YUYV -q --title @GMSVideoVig  /var/www/html/images/%d%m%y_%H%M%S.jpg")
+    start = start+1
+    time.sleep(10)
+
+print("Proceso TIMELAPSE finalizado. Turno para editar el video")

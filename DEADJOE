@@ -1,0 +1,66 @@
+
+*** These modified files were found in JOE when it aborted on Sun Feb 23 20:16:27 2020
+*** JOE was aborted because the terminal closed
+
+*** File 'videovig.py'
+import RPi.GPIO as GPIO
+import time
+import os
+
+#Inicializar variables y programa
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(4, GPIO.IN, GPIO.PUD_DOWN)
+estado_alarma = False
+time.sleep(2)
+print('ALARMA OFF')
+
+#Funcion que lee el estado del sensor PIR y si cambia lo imprime    
+def comprobarEstado(estado_previo):
+    estado_actual = GPIO.input(4)
+    if estado_actual != estado_previo:
+        if estado_actual:
+            print('ALARMA ON')
+        else:
+            print('ALARMA OFF')      
+    return estado_actual
+
+
+#Cada 1/2seg lee el sensor
+while True:
+    time.sleep(0.5)
+    estado_alarma = comprobarEstado(estado_alarma)
+
+#   Toma una foto cada 1/2 seg. si el sensor está activado.
+    while estado_alarma:
+        os.system("fswebcam -i 0 -d /dev/video0 -r 640x480 -p YUYV -q --title @GMSVideoVig  /var/www/html/images/%d%m%y_%H%M%S.jpg")
+        time.sleep(0.5)
+        estado_alarma = comprobarEstado(estado_alarma)
+
+*** File '(Unnamed)'
+pir.py
+pir.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+videovig.py
+
+*** File '* Startup Log *'
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc

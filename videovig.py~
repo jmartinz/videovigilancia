@@ -1,0 +1,22 @@
+import RPi.GPIO as GPIO
+import time
+import os
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(4, GPIO.IN, GPIO.PUD_DOWN)
+estado_anterior = False
+estado_actual = False
+time.sleep(4)
+
+while True:
+    print('ALARMA OFF')
+    time.sleep(0.5)
+    estado_actual = GPIO.input(4)
+
+    while estado_actual:
+        print('ALARMA ON')
+        os.system("fswebcam -i 0 -d /dev/video0 -r 640x480 -p YUYV -q --title @GMSVideoVig  /var/www/html/images/%d%m%y_%H%M%S.jpg")
+        time.sleep(0.5)
+        estado_actual = GPIO.input(4)
+    else:
+      print('ALARMA OFF')
